@@ -1,4 +1,5 @@
 //ES9
+
 const obj =  {
   name: "Gonzalo",
   age: 32,

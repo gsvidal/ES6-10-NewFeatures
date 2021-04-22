@@ -41,7 +41,7 @@ y aquí continúa la multilínea`;
 console.log(frase1);
 console.log(frase2);
 
-//Desestructuration
+//Desestructuring assignment
 //before es6
 let person = {
   name: "Gonzalo",
