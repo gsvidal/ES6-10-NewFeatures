@@ -121,3 +121,130 @@ const listOfNames4 = name => {
 }
 
 const square = num => num * num;
+
+//Asynchronism
+//Promises
+const helloPromise = () => {
+  return new Promise((resolve, reject) => {
+    if(true) {
+      resolve("Promise resolved!");
+    } else {
+      reject("Something went wrong");
+    }
+  });
+}
+
+helloPromise()
+  .then(response => console.log(response))
+  .catch(error => console.log(error));
+
+
+//Classes
+class Calculator {
+  constructor() {
+    this.valueA = 0;
+    this.valueB = 0;
+  }
+  sum(valueA, valueB) {
+    this.valueA = valueA;
+    this.valueB = valueB;
+    return this.valueA + this.valueB;
+  }
+}
+
+const calc = new Calculator();
+console.log(calc.sum(3,2));
+
+
+//Modules
+// import  hello   from "./module.js";
+//Old Sintaxis:
+const hello2 = require("./module");
+
+console.log(hello2());
+
+
+//Generator
+//is a function that produces a sequence of results(series of values) instead of a single value.
+function* helloWorld() {
+  if(true) {
+    yield "Hello, ";
+  }
+  if(true) {
+    yield "World.";
+  }
+}
+
+const generatorHello = helloWorld();
+console.log(generatorHello.next().value);
+console.log(generatorHello.next().value);
+console.log(generatorHello.next().value);
+
+function* idMaker() {
+  var index = 0;
+  while (true)
+    yield ++index;
+}
+
+var gen = idMaker();
+
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+console.log(gen.next().value); // 3
+console.log(gen.next().value); // 4
+
+//yield*
+//This expression is usedd to elegate to another generator function
+function* g1() {
+  yield 2;
+  yield 3;
+  yield 4;
+}
+
+function* g2() {
+  yield 1;
+  yield* g1();
+  yield 5;
+}
+
+const iterator = g2();
+
+console.log(iterator.next()); // {value: 1, done: false}
+console.log(iterator.next()); // {value: 2, done: false}
+console.log(iterator.next()); // {value: 3, done: false}
+console.log(iterator.next()); // {value: 4, done: false}
+console.log(iterator.next()); // {value: 5, done: false}
+console.log(iterator.next()); // {value: undefined, done: true}
+
+var sum = 0;
+var num = 1;
+var ant;
+
+function* fibonacciItems() {
+  sum = sum + num;
+  while(true) {
+    yield sum + num;
+  }
+}
+
+const fibonacciGen = fibonacciItems();
+
+console.log(fibonacciGen.next());
+console.log(fibonacciGen.next());
+console.log(fibonacciGen.next());
+console.log(fibonacciGen.next());
+console.log(fibonacciGen.next());
+
+
+function* fibonacci() {
+  let a = 0, b = 1;
+  while (a !== Infinity) {
+    yield a;
+    //The next assigment expresion makes two asignations executes at the same time ( a = b; b = a + b; )
+    [a, b] = [b, a + b];
+  }
+}
+
+for (let value of fibonacci()) {
+  console.log(value);
+}
